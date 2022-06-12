@@ -19,7 +19,7 @@ class Solution(object):
             if not root.left and not root.right and total==targetSum:
                 total=0
                 
-                res.append(current.copy())
+                res.append(current)
                 return
             
            
