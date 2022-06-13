@@ -2,31 +2,19 @@ class Solution {
 public:
     long long countSubarrays(vector<int>& nums, long long k) {
         
-        long long sum=0;
+        long long current=0,ans=0;
+        int j=0;
         int n=nums.size();
-        int y=-1;
-        
-        int x=0;
-        
-        
-        long long ans=0;
-        
-        while(x<n)
+        for(int i=0;i<n;i++)
         {
-            if(y<x-1) y=x-1,sum=0;
+            current+=nums[i];
             
-            
-            while(y+1<n and (sum+nums[y+1])*(y+1-x+1)<k){
-                
-              
-                y++;
-                  sum+=nums[y];
+            while(current*(i-j+1)>=k)
+            {
+                current-=nums[j++];
             }
-                
-                int temp=y-x+1;
-        ans+=temp;
-            sum-=nums[x];
-            x++;
+            
+            ans+=i-j+1;
         }
         
         return ans;
