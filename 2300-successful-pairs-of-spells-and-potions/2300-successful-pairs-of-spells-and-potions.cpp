@@ -18,7 +18,7 @@ public:
             {
                 int mid=(r+l)/2;
                
-                if(1LL*s*potions[mid]>=success) //1LL converts to long long
+                if(1LL*s*potions[mid]>=success) //1LL converts to long long to be prefixed important
                 {
                     res=mid;
                     r=mid-1;
