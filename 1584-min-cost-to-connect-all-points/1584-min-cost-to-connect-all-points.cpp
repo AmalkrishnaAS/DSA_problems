@@ -1,74 +1,46 @@
 class Solution {
-    struct Node {
-        int src, dest, weight;
-        Node(int s, int d, int w) : src(s), dest(d), weight(w) {}
-    };
-    
-    vector<Node> edges;
-    struct compDescend {
-      bool operator()(const Node &lhs, const Node &rhs) {
-          return lhs.weight > rhs.weight;
-      }  
-    };
-    
-    vector<int> parents;
 public:
-    /* Union-find Related */
-    void makeset(int n) {
-        parents.resize(n, -1);
-        for(int i=0; i<n; i++) parents[i] = i;
-    }
-    
-    int find(int x) {
-        if(parents[x] != x) {
-            parents[x] = find(parents[x]);
-        }
-        return parents[x];
-    }
-    
-    void makeUnion(int a, int b) {
-        int p1 = find(a);
-        int p2 = find(b);
-        
-        if(p1!=p2) {
-            parents[p2]=p1;
-        }
-    }
-    
-    /* Points Related */
-    int getManhattenDist(vector<int> x , vector<int> y) {
-        return abs(abs(y[0]-x[0]) + abs(y[1]-x[1]));
-        
-    }
     int minCostConnectPoints(vector<vector<int>>& points) {
+        int n = points.size();
         
-        for(int i=0; i<points.size(); i++) {
-            for(int j=i+1; j<points.size(); j++) {
-                
-                if(i!=j) {
-                    int w = getManhattenDist(points[i], points[j]);
-                    edges.push_back(Node(i, j, w));
+        // Min-heap to store minimum weight edge at top.
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> heap;
+        
+        // Track nodes which are included in MST.
+        vector<bool> inMST(n);
+        
+        heap.push({ 0, 0 });
+        int mstCost = 0;
+        int edgesUsed = 0;
+        
+        while (edgesUsed < n) {
+            pair<int, int> topElement = heap.top();
+            heap.pop();
+            
+            int weight = topElement.first;
+            int currNode = topElement.second;
+            
+            // If node was already included in MST we will discard this edge.
+            if (inMST[currNode]) {
+                continue;
+            }
+            
+            inMST[currNode] = true;
+            mstCost += weight;
+            edgesUsed++;
+            
+            for (int nextNode = 0; nextNode < n; ++nextNode) {
+                // If next node is not in MST, then edge from curr node
+                // to next node can be pushed in the priority queue.
+                if (!inMST[nextNode]) {
+                    int nextWeight = abs(points[currNode][0] - points[nextNode][0]) + 
+                                     abs(points[currNode][1] - points[nextNode][1]);
+                    
+                    heap.push({ nextWeight, nextNode });
                 }
             }
         }
-        sort(edges.begin(), edges.end(), compDescend());
         
-        int n = points.size();
-        makeset(n);
-        
-        int count = 0; int res = 0;
-        while(count != n-1) {
-            auto n = edges.back(); edges.pop_back();
-            // cout<<n.src<<" "<<n.dest<<" "<<n.weight<<endl;
-            int p1 = find(n.src);
-            int p2 = find(n.dest);
-            
-            if(p1!=p2) {
-                makeUnion(n.src, n.dest);
-                res += n.weight;
-                count++;
-            }
-        }
-        return res;
+        return mstCost;
     }
 };
