@@ -1,2 +1,2 @@
 # DSA_problems
-Collection of LeetCode questions
+Collection of LeetCode and GFG questions
