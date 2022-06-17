@@ -1,7 +1,8 @@
 class Solution(object):
     def minCameraCover(self, root):
         self.ans = 0
-        covered = {None}
+        covered = set()
+        covered.add(None)
 
         def dfs(node, par = None):
             if node:
@@ -11,7 +12,10 @@ class Solution(object):
                 if (par is None and node not in covered or
                         node.left not in covered or node.right not in covered):
                     self.ans += 1
-                    covered.update({node, par, node.left, node.right})
+                    covered.add(node)
+                    covered.add(node.left)
+                    covered.add(node.right)
+                    covered.add(par)
 
         dfs(root)
         return self.ans
