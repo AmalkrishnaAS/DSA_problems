@@ -5,42 +5,44 @@ using namespace std;
  // } Driver Code Ends
 class Solution {
 public:
-
-bool check(vector<int> adj[],vector<int> &colors,int selected)
+bool check(vector<int> adj[],vector<int>& col,int curr)
 {
     queue<int> q;
-    q.push(selected);
-    colors[selected]=1;
+    q.push(curr);
+    col[curr]=1;
     
-    
-    while(!q.empty())
+    while(not q.empty())
     {
-        int node =q.front();
+        int node=q.front();
         q.pop();
-        for(auto it:adj[node]){
-            if(colors[it]==-1){
-                colors[it]=not colors[node];
+        
+        
+        for(auto it:adj[node])
+        {
+            if(col[it]==-1)
+            {
+                col[it]=not col[node];
                 q.push(it);
             }
-            else{
-                if(colors[it]==colors[node])
-                    return false;
+            
+            else {
+                if(col[it]==col[node]) return false;
             }
         }
     }
     return true;
 }
-
-
 	bool isBipartite(int n, vector<int>adj[]){
 	    // Code here
 	    
-	    vector<int> colors(n,-1);
+	   
+	    
+	    vector<int> col(n,-1);
 	    for(int i=0;i<n;i++)
 	    {
-	        if( colors[i]==-1)
+	        if(col[i]==-1)
 	        {
-	            if(not check(adj,colors,i))
+	            if(not check(adj,col,i))
 	                return false;
 	        }
 	    }
