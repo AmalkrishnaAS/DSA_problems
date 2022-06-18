@@ -6,11 +6,8 @@ public:
         
         while(n)
         {
-            if(n&1==1)
-                ans++;
-            
-            
-            n=n>>1;
+           n=n&(n-1);
+            ans++;
         }
         return ans;
     }
