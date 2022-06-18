@@ -6,7 +6,7 @@ public:
         
         while(n)
         {
-            if(n%2)
+            if(n&1==1)
                 ans++;
             
             
