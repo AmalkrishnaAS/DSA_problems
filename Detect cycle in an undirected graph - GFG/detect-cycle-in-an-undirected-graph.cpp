@@ -12,15 +12,16 @@ class Solution {
       
       for(auto &it:adj[src])
       {
-          if(not visit[it])
+            if( visit[it] and parent!=it)
+          {
+              return true;
+          }
+          else if (not visit[it])
           {
               if(dfs(it,adj,visit,src))
                 return true;
           }
-          else if(parent!=it)
-          {
-              return true;
-          }
+       
       }
       
       return false;
