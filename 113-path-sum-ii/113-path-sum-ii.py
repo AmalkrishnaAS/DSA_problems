@@ -17,7 +17,7 @@ class Solution(object):
             total+=root.val
             
             if not root.left and not root.right and total==targetSum:
-                total=0
+                # total=0
                 
                 res.append(current)
                 return
