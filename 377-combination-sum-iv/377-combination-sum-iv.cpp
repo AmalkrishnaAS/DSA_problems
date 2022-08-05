@@ -1,7 +1,7 @@
 class Solution {
 public:
     
-    map<int,int> m;
+    unordered_map<int,int> m;
     
     int dfs(vector<int> &nums,int target){
         if(m.find(target)!=m.end()) return m[target];
