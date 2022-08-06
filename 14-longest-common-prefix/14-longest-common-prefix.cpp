@@ -1,37 +1,28 @@
 class Solution {
 public:
+    
+    int min(int a,int b){
+        return a<b?a:b;
+    }
     string longestCommonPrefix(vector<string>& v) {
-       
-        
-        int i=0;
         string ans="";
-        int len=INT_MAX;
-        
-        for(int i=0;i<v.size();i++)
-        {
-            cout<<v[i]<<endl;
-            int n=v[i].length();
-            len=min(len,n);
-        }
-        
-        
-        for(int i=0;i<len;i++)
-        {
+        int minlen=INT_MAX; 
+         for(string s:v){
+             minlen=min(s.size(),minlen);
+         }
+        for(int i=0;i<minlen;i++){
             char c=v[0][i];
-            // bool flag=true;
-            for(int j=1;j<v.size();j++)
-            {
-                if(c!=v[j][i])
-                {
-                    // flag=false;
-                    return ans;
-                }
+            bool flag=true;
+            for(int j=0;j<v.size();j++){
+                if(c!= v[j][i]) {flag=false; break;}
             }
-            // if(flag)
-                ans=ans+c;
             
+            
+            if(flag) ans+=c;
+            else break;
         }
-      
+        
         return ans;
+        
     }
 };
