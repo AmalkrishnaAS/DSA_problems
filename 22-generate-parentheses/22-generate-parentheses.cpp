@@ -1,22 +1,22 @@
 class Solution {
 public:
     
-    vector<string> ans;
-    void dfs(int open,int close,int n,string curr){
-        if(curr.length()>=2*n) {
-            ans.push_back(curr);
-            return;
+     vector<string> ans;
+        
+        void dfs(string s,int n,int open,int close) {
+            if(s.length()==2*n){
+                ans.push_back(s);
+                return;
+            }
             
-        }
-                
-
+            if(open<n) dfs(s+"(",n,open+1,close);
+            if(close<open) dfs(s+")" ,n,open,close+1);
+            
+        } 
         
-        if(open<n) dfs( open+1,close,n,curr+'(');
-         if(close<open) dfs(open,close+1,n,curr+')');
-    }
     vector<string> generateParenthesis(int n) {
+       dfs("",n,0,0);
+        return  ans;
         
-        dfs(0,0,n,"");
-        return ans;
     }
 };
