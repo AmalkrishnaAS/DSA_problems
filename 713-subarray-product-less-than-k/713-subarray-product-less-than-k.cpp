@@ -6,7 +6,8 @@ public:
         int ans=0;
         int prod=1;
         int left=0;
-        for(int i=0;i<nums.size();i++) {
+        int n=nums.size();
+        for(int i=0;i<n;i++) {
             prod*=nums[i];
             while(prod>=k) {
                 prod/=nums[left];
