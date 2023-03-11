@@ -24,7 +24,7 @@ public:
     TreeNode* sortedListToBST(ListNode* head) {
         
         vector<int> tmp=ListToVector(head);
-        for(auto &n:tmp) cout<<n<<" ";
+        // for(auto &n:tmp) cout<<n<<" ";
         return dfs(tmp,0,tmp.size()-1);
         
     }
